@@ -44,10 +44,7 @@ function register()
         {
           console.log(code.value + "/" + codes[i]["code"])
           if(codes[i]["used"] === false)
-          {
-            console.log(i);
-            set(ref(db, `ADMIN/codes/${i}/used/`), true);
-  
+          {  
             push(ref(db, "USERS/"), {
               identity: identity.value,
               email: email.value.toUpperCase(),
@@ -58,7 +55,7 @@ function register()
             .then(()=>{
         
               status.textContent = "Vous avez bien ete enregistre dans notre systeme";
-  
+              set(ref(db, `ADMIN/codes/${i}/used/`), true);
               identity.value = "";
               email.value = "";
               password.value = "";
