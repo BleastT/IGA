@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-import {getDatabase,ref,push } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
+import {getDatabase,ref,push, onValue,set } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAofKs4FUvog9oY8CnWnOr-w54fbGARAio",
   authDomain: "igeacalendrier.firebaseapp.com",
@@ -35,25 +35,48 @@ function register()
 
   if(identity.value && email.value && password.value && code.value)
   {  
-    push(ref(db, "USERS/"), {
-      identity: identity.value,
-      email: email.value.toUpperCase(),
-      password: password.value,
-      type: "user",
-      workdays: ""
-    })
-    .then(()=>{
-      status.textContent = "Vous avez bien ete enregistre dans notre systeme";
-    })
-    .catch((error) => {
-      status.textContent = "Une erreur est apparut durant l'inscription :" + error;
-    }); 
+    const codeRef = ref(db, "ADMIN/codes");
+    onValue(codeRef, (snapshot2) => {
+      const codes = snapshot2.val();
+      for(let i in codes)
+      {
+        if (codes[i]["code"] == code.value)
+        {
+          console.log(code.value + "/" + codes[i]["code"])
+          if(codes[i]["used"] === false)
+          {
+            console.log(i);
+            set(ref(db, `ADMIN/codes/${i}/used/`), true);
+  
+            push(ref(db, "USERS/"), {
+              identity: identity.value,
+              email: email.value.toUpperCase(),
+              password: password.value,
+              type: "user",
+              workdays: ""
+            })
+            .then(()=>{
+        
+              status.textContent = "Vous avez bien ete enregistre dans notre systeme";
+  
+              identity.value = "";
+              email.value = "";
+              password.value = "";
+              code.value = "";
+            })
+            .catch((error) => {
+              status.textContent = "Une erreur est apparut durant l'inscription :" + error;
+            }); 
+          }
+
+        }
+        else {
+          status.textContent = "Le code est faux ou deja utilise";
+        }
+      }
+    });
     
-    
-    identity.value = "";
-    email.value = "";
-    password.value = "";
-    code.value = "";
+  
   }
   else{
     status.textContent = "S'il vous plait, remplissez toute les cases";

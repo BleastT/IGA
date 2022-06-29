@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-import {getDatabase,ref,onValue, set } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
+import {getDatabase,ref,onValue, push } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAofKs4FUvog9oY8CnWnOr-w54fbGARAio",
   authDomain: "igeacalendrier.firebaseapp.com",
@@ -46,8 +46,9 @@ function getDaysInMonth(year, month) {
 
 function addWorkDay()
 {
-  set(ref(db, "USERS/" + id + "/workdays/" + new Date(2022,6, 1).toDateString()), {
-    time : "14h a 16h"
+  push(ref(db, "ADMIN/codes/"), {
+    code : "CCpd94",
+    used : false
   });
 }
 
