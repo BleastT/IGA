@@ -40,7 +40,7 @@ function register()
       const codes = snapshot2.val();
       for(let i in codes)
       {
-        if (codes[i]["code"] == code.value)
+        if (codes[i]["code"] === code.value)
         {
           console.log(code.value + "/" + codes[i]["code"])
           if(codes[i]["used"] === false)
@@ -68,10 +68,16 @@ function register()
               status.textContent = "Une erreur est apparut durant l'inscription :" + error;
             }); 
           }
+          else
+          {
+            status.textContent = "Ce code est deja utilise";
+          }
+
+          break;
 
         }
         else {
-          status.textContent = "Le code est faux ou deja utilise";
+          status.textContent = "Le code est faux";
         }
       }
     });
