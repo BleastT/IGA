@@ -79,8 +79,6 @@ function loadWork()
       workingDays.push([new Date(i), data[i]["time"]]);
     }
   });
-
-  console.log(workingDays);
 }
 
 
