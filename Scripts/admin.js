@@ -18,12 +18,13 @@ var connectBTN = document.getElementById("connectBTN");
 var status = document.getElementById("statusText");
 
 
+
 window.onload = () => {
-  if(localStorage.getItem("userId") !== "disconnected" && localStorage.getItem("userId") !== null)
-  {
-    window.location.href = "../Pages/Dashboard.html";
-  }
-};
+    if(localStorage.getItem("userId") !== "disconnected" && localStorage.getItem("userId") !== null)
+    {
+      window.location.href = "../Pages/Dashboard.html";
+    }
+  };
 
 async function connect()
 {
@@ -36,26 +37,24 @@ async function connect()
 
   if(email.value && password.value)
   {
-    const reference = ref(db, "USERS");
+    const reference = ref(db, "ADMIN/");
     onValue(reference, (snapshot) => {
       const data = snapshot.val();;
       if (data != null)
       {
-        for(let i in data)
+        // console.log(data["email"]);
+        // console.log(data["password"]);
+        if(email.value.toUpperCase() == data["email"] && password.value == data["password"])
         {
-          if(email.value.toUpperCase() == data[i]["email"] && password.value == data[i]["password"])
-          {
-            id = i;
-            localStorage.setItem("userId", id);
-            status.textContent = "Bienvenue" + data[id]["identity"];
+            localStorage.setItem("userId", "admin$%_)");
+            status.textContent = "Bienvenue Administrateur";
             window.location.reload();
             logged = true;
-            break;
-          }
-          else{
-            status.textContent = "Verifiez que vous avez entrez les bons renseignements";
-          }
         }
+        else{
+            status.textContent = "Verifiez que vous avez entrez les bons renseignements";
+        }
+        
       }
       else{
         status.textContent = "Aucun compte n'a ete creer poour le moment";

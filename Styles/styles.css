@@ -7,15 +7,15 @@
 
 #calendar {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    height: 500px;
+    grid-template-columns: repeat(1, .5fr);
+    grid-template-rows: repeat(5, 5fr);
     gap: 5px;
 }
 
 .day {
     background-color: brown;
     font-size: larger;
+    height: 50px;
 }
 
 #today {

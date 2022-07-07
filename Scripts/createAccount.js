@@ -32,7 +32,6 @@ function register()
   var password = document.getElementById("password");
   var code = document.getElementById("code");
 
-
   if(identity.value && email.value && password.value && code.value)
   {  
     const codeRef = ref(db, "ADMIN/codes");
@@ -42,7 +41,6 @@ function register()
       {
         if (codes[i]["code"] === code.value)
         {
-          console.log(code.value + "/" + codes[i]["code"])
           if(codes[i]["used"] === false)
           {  
             push(ref(db, "USERS/"), {
@@ -70,7 +68,6 @@ function register()
             status.textContent = "Ce code est deja utilise";
           }
 
-          break;
 
         }
         else {
