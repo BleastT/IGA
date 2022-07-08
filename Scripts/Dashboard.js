@@ -29,11 +29,10 @@ if(id !== "admin$%_)")
 {
   body.insertAdjacentHTML("beforeend", `
     <a href="../index.html"><img src="../images/logo.ico" alt=""></a>
-    <h1 id="name"></h1>
-    <button id="logoutBTN" class="btn">Se deconnecter</button>
-    <button id="draw" class="btn">Draw calendar</button>
-    <h3 id="currDate"></h3>
-    <div id="calendar"></div>`);
+    <h1 id="name" class="text"></h1>
+    <h3 id="currDate" class="text"></h3>
+    <div id="calendar"></div>    <button id="logoutBTN" class="btn">Se deconnecter</button>
+    <button id="draw" class="btn">Montrer mon horaire de la semaine</button>`);
 
   var draw = document.getElementById("draw");
   var logout = document.getElementById("logoutBTN");
@@ -110,11 +109,12 @@ if(id !== "admin$%_)")
 
     for(let day = date.getDay() != 0 ? date.getDate() - date.getDay() : date.getDay() ; numberOfDays < 7; day++)
     {
-      
+      var dayName = days[new Date(date.getFullYear(), date.getMonth(), day).getDay()];
+
+
       if(day > daysInCurrentMonth)
       {
         day = 1;
-        daysInCurrentMonth = getDaysInMonth(date.getFullYear(), date.getMonth()+1);
       }
       else if(day < 1)
       {
@@ -126,15 +126,23 @@ if(id !== "admin$%_)")
 
       if(is_WorkingDay !== "")
       {
-        calendar.insertAdjacentHTML("beforeend",`<div class="day" id="workingDay">${day}<div>${is_WorkingDay}</div></div`);
+        if(day == date.getDate())
+        {
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}</div><div>${dayName}</div><div>${is_WorkingDay}</div></div>`);
+
+        }
+        else{
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="workingDay"><div>${day}</div><div>${dayName}</div><div>${is_WorkingDay}</div></div>`);
+
+        }
       }
       else{
         if(day == date.getDate())
         {
-          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today">${day}</div`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}</div><div>${dayName}</div></div`);
         }
         else{
-          calendar.insertAdjacentHTML("beforeend",`<div class="day">${day}</div`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day"><div>${day}</div><div>${dayName}</div></div`);
         }
       }
 
@@ -147,16 +155,16 @@ if(id !== "admin$%_)")
 
 
   draw.addEventListener("click", drawCalendar);
-  logout.addEventListener("click", () => {localStorage.setItem("userId", "disconnected"); window.location.reload();});
+  logout.addEventListener("click", () => {sessionStorage.setItem("userId", "disconnected"); window.location.reload();});
   // testBtn.addEventListener("click", addWorkDay);
 
 }
 else
 {
 
-  body.insertAdjacentHTML("beforeend", `<button id="logout" class="btn">Se deconnecter</button><button id="codeGenerate" class="btn">Generer un code d'inscription</button>
+  body.insertAdjacentHTML("beforeend", `    <a href="../index.html"><img src="../images/logo.ico" alt=""></a>
+  <h1 class="text">Mes Employers:</h1>
   <div id='usersList'></div>
-  <h5 id="newCode"></h5>
   <div class="container">
     <input type="text" id="userToMod" placeholder="Numero de L'employer" class="inp">
     <input type="text" id="workDate" placeholder="Date de travail(m/d/y)" class="inp">
@@ -164,6 +172,8 @@ else
     <input type="text" id="workHours_end" placeholder="fin de l'Heur" class="inp">
     <button id="update" class="btn">Enregistrer</button>
   </div>
+  <button id="logout" class="btn">Se deconnecter</button><button id="codeGenerate" class="btn">Generer un code d'inscription</button>
+  <h5 id="newCode" class="text"></h5>
   `);
 
 
@@ -196,7 +206,7 @@ else
 
     for(let i in users)
     {
-      usersList.insertAdjacentHTML("beforeend", `<div id='user'>${i}:${users[i][0]}</div>`)
+      usersList.insertAdjacentHTML("beforeend", `<div id='user' class="text">${i}:${users[i][0]}</div>`)
     }
     
     
@@ -219,7 +229,7 @@ else
       used: false,
     });
 
-    newCode.textContent = `Ce code : ${result} a ete genere`;
+    newCode.textContent = `Le code ${result} a été généré`;
   
   }
 
@@ -240,7 +250,7 @@ else
 
   update.addEventListener("click", save);
   codeGenerate.addEventListener("click", generateCode);
-  logout.addEventListener("click", () => {localStorage.setItem("userId", "disconnected"); window.location.reload();});
+  logout.addEventListener("click", () => {sessionStorage.setItem("userId", "disconnected"); window.location.reload();});
 }
 
 

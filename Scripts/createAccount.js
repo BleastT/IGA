@@ -25,6 +25,7 @@ window.onload = () => {
   }
 };
 
+
 function register()
 {
   var identity = document.getElementById("identity");
@@ -32,55 +33,60 @@ function register()
   var password = document.getElementById("password");
   var code = document.getElementById("code");
 
+  let codes_ = []
+
   if(identity.value && email.value && password.value && code.value)
   {  
     const codeRef = ref(db, "ADMIN/codes");
-    onValue(codeRef, (snapshot2) => {
-      const codes = snapshot2.val();
-      for(let i in codes)
-      {
-        if (codes[i]["code"] === code.value)
-        {
-          if(codes[i]["used"] === false)
-          {  
-            push(ref(db, "USERS/"), {
-              identity: identity.value,
-              email: email.value.toUpperCase(),
-              password: password.value,
-              type: "user",
-              workdays: ""
-            })
-            .then(()=>{
-        
-              status.textContent = "Vous avez bien ete enregistre dans notre systeme";
-              set(ref(db, `ADMIN/codes/${i}/used/`), true);
-              identity.value = "";
-              email.value = "";
-              password.value = "";
-              code.value = "";
-            })
-            .catch((error) => {
-              status.textContent = "Une erreur est apparut durant l'inscription :" + error;
-            }); 
-          }
-          else
-          {
-            status.textContent = "Ce code est deja utilise";
-          }
-
-
-        }
-        else {
-          status.textContent = "Le code est faux";
-        }
-      }
+    onValue(codeRef, (snapshot) => {
+      const codes = snapshot.val();
+      codes_ = codes;
     });
-    
-  
+
+
+    for(let i in codes_)
+    {
+      if (codes_[i]["code"] === code.value)
+      {
+        if(codes_[i]["used"] === false)
+        {  
+          push(ref(db, "USERS/"), {
+            identity: identity.value,
+            email: email.value.toUpperCase(),
+            password: password.value,
+            type: "user",
+            workdays: ""
+          })
+          .then(()=>{
+      
+            status.textContent = "Vous avez bien ete enregistre dans notre systeme";
+            set(ref(db, `ADMIN/codes/${i}/used`), true);
+            identity.value = "";
+            email.value = "";
+            password.value = "";
+            code.value = "";              
+          })
+          .catch((error) => {
+            status.textContent = "Une erreur est apparut durant l'inscription :" + error;
+          }); 
+        }
+        else
+        {
+          status.textContent = "Ce code est deja utilise";
+        }
+
+
+      }
+      else {
+        status.textContent = "Le code est faux";
+      }
+
+    }  
   }
   else{
     status.textContent = "S'il vous plait, remplissez toute les cases";
-  }
+  } 
+
 
   // const reference = ref(db, "ADMIN");
   // onValue(reference, (snapshot) => {

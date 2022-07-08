@@ -49,8 +49,6 @@ async function connect()
             sessionStorage.setItem("userId", id);
             status.textContent = "Bienvenue" + data[id]["identity"];
             window.location.reload();
-            logged = true;
-            break;
           }
           else{
             status.textContent = "Verifiez que vous avez entrez les bons renseignements";
@@ -63,7 +61,6 @@ async function connect()
     });
 
 
-    password.value = "";
   }
   else{
     status.textContent = "S'il vous plait, remplissez toute les cases";

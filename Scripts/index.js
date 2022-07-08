@@ -10,6 +10,6 @@ window.onload = () => {
     }
     else
     {
-        redirect.insertAdjacentHTML("beforeend", `<a href="./Pages/Dashboard.html">Dashboard</a>`);
+        redirect.insertAdjacentHTML("beforeend", `<a href="./Pages/Dashboard.html" class="btn">Dashboard</a>`);
     }
 };
