@@ -188,18 +188,22 @@ else
       usersList.innerHTML = '';
       for(let i in data)
       {
-        users.push([data[i]["identity"], i]);
+        users.push([data[i]["identity"], i + ":"]);
       }
+    }
+
+    if(data === null)
+    {
+      usersList.insertAdjacentHTML("beforeend", `<div id='user'>Vous n'avez pas d'employers</div>`)
     }
     else
     {
-      users.push("vous n'avez pas d'employers");
-    }
-
-    for(let i in users)
+      for(let i in users)
     {
-      usersList.insertAdjacentHTML("beforeend", `<div id='user'>${i}:${users[i][0]}</div>`)
+      usersList.insertAdjacentHTML("beforeend", `<div id='user'>${i}${users[i][0]}</div>`)
     }
+    }
+    
   });
 
 
