@@ -19,7 +19,7 @@ var status = document.getElementById("statusText");
 
 
 window.onload = () => {
-  if(localStorage.getItem("userId") !== "disconnected" && localStorage.getItem("userId") !== null)
+  if(sessionStorage.getItem("userId") !== "disconnected" && sessionStorage.getItem("userId") !== null)
   {
     window.location.href = "../Pages/Dashboard.html";
   }
@@ -46,7 +46,7 @@ async function connect()
           if(email.value.toUpperCase() == data[i]["email"] && password.value == data[i]["password"])
           {
             id = i;
-            localStorage.setItem("userId", id);
+            sessionStorage.setItem("userId", id);
             status.textContent = "Bienvenue" + data[id]["identity"];
             window.location.reload();
             logged = true;

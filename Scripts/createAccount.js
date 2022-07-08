@@ -18,9 +18,9 @@ var registerBTN = document.getElementById("registerBTN");
 var status = document.getElementById("statusText");
 
 window.onload = () => {
-  if(localStorage.getItem("userId") !== "disconnected" || localStorage.getItem("userId") === null)
+  if(sessionStorage.getItem("userId") !== "disconnected" || sessionStorage.getItem("userId") === null)
   {
-    localStorage.setItem("userId", "disconnected")
+    sessionStorage.setItem("userId", "disconnected")
     window.location.href = "../Pages/Dashboard.html";
   }
 };

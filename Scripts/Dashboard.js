@@ -15,24 +15,23 @@ const db = getDatabase();
 var logout = document.getElementById("logoutBTN");
 
 window.onload = () => {
-    if(localStorage.getItem("userId") === "disconnected" || localStorage.getItem("userId") === null)
+    if(sessionStorage.getItem("userId") === "disconnected" || sessionStorage.getItem("userId") === null)
     {
-      localStorage.setItem("userId", "disconnected")
+      sessionStorage.setItem("userId", "disconnected")
       window.location.href = "../Pages/Login.html";
     }
 };
 
-var id = localStorage.getItem("userId");
+var id = sessionStorage.getItem("userId");
 var body = document.getElementById("body")
 
 if(id !== "admin$%_)")
 {
   body.insertAdjacentHTML("beforeend", `
     <a href="../index.html"><img src="../images/logo.ico" alt=""></a>
-    <button id="logoutBTN">Se deconnecter</button>
     <h1 id="name"></h1>
-    <button id="testBTN">add Workday</button>
-    <button id="draw">Draw calendar</button>
+    <button id="logoutBTN" class="btn">Se deconnecter</button>
+    <button id="draw" class="btn">Draw calendar</button>
     <h3 id="currDate"></h3>
     <div id="calendar"></div>`);
 
@@ -40,7 +39,7 @@ if(id !== "admin$%_)")
   var logout = document.getElementById("logoutBTN");
   var calendar = document.getElementById("calendar");
   var currDate = document.getElementById("currDate");
-  var testBtn = document.getElementById("testBTN")
+  // var testBtn = document.getElementById("testBTN")
 
   const reference = ref(db, "USERS/" + id);
   onValue(reference, (snapshot) => {
@@ -149,21 +148,22 @@ if(id !== "admin$%_)")
 
   draw.addEventListener("click", drawCalendar);
   logout.addEventListener("click", () => {localStorage.setItem("userId", "disconnected"); window.location.reload();});
-  testBtn.addEventListener("click", addWorkDay);
+  // testBtn.addEventListener("click", addWorkDay);
 
 }
 else
 {
 
-  body.insertAdjacentHTML("beforeend", `<button id="logout">Se deconnecter</button>
+  body.insertAdjacentHTML("beforeend", `<button id="logout" class="btn">Se deconnecter</button><button id="codeGenerate" class="btn">Generer un code d'inscription</button>
   <div id='usersList'></div>
-  <button id="codeGenerate">Generer un code d'inscription</button>
   <h5 id="newCode"></h5>
-  <input type="text" id="userToMod" placeholder="Numero de L'employer">
-  <input type="text" id="workDate" placeholder="Date de travail(m/d/y)">
-  <input type="text" id="workHours_start" placeholder="Debut de l'Heur">
-  <input type="text" id="workHours_end" placeholder="fin de l'Heur">
-  <button id="update">Enregistrer</button>
+  <div class="container">
+    <input type="text" id="userToMod" placeholder="Numero de L'employer" class="inp">
+    <input type="text" id="workDate" placeholder="Date de travail(m/d/y)" class="inp">
+    <input type="text" id="workHours_start" placeholder="Debut de l'Heur" class="inp">
+    <input type="text" id="workHours_end" placeholder="fin de l'Heur" class="inp">
+    <button id="update" class="btn">Enregistrer</button>
+  </div>
   `);
 
 
@@ -188,21 +188,17 @@ else
       usersList.innerHTML = '';
       for(let i in data)
       {
-        users.push([data[i]["identity"], i + ":"]);
+        users.push([data[i]["identity"], i]);
       }
     }
 
-    if(data === null)
+
+
+    for(let i in users)
     {
-      usersList.insertAdjacentHTML("beforeend", `<div id='user'>Vous n'avez pas d'employers</div>`)
+      usersList.insertAdjacentHTML("beforeend", `<div id='user'>${i}:${users[i][0]}</div>`)
     }
-    else
-    {
-      for(let i in users)
-    {
-      usersList.insertAdjacentHTML("beforeend", `<div id='user'>${i}${users[i][0]}</div>`)
-    }
-    }
+    
     
   });
 

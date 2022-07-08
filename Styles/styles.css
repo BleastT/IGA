@@ -1,29 +1,70 @@
-/*       Index        */ 
-/*       createAccount        */ 
-/*       Login        */ 
+/*       Index        */
+/*       createAccount        */
+/*       Login        */
 
 
-/*       Dashboard        */       
+/*       Dashboard        */
 
 #calendar {
+    margin-top: 80px;
     display: grid;
-    grid-template-columns: repeat(1, .5fr);
-    grid-template-rows: repeat(5, 5fr);
-    gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
 }
 
 .day {
-    background-color: brown;
+    background-color: red;
+    border-radius: 3px;
     font-size: larger;
-    height: 50px;
+    height: 120px;
+    font-weight: bolder;
 }
 
 #today {
     background-color: blue;
 }
 
-#workingDay{
+#workingDay {
     background-color: blueviolet;
 }
 
+.btn {
+    background-color: #e2001a;
+    border-radius: 3px;
+    border-width: 0px;
+    padding: 5px 15px;
+    color: white;
+    font-weight: bolder;
+    text-decoration: none;
+    margin: 10px;
+}
 
+.btn:hover {
+    border-width: 1px;
+    background-color: #970012;
+    border-color: black;
+    cursor: pointer;
+}
+
+.inp {
+    background-color: aliceblue;
+    border-radius: 3px;
+    border-width: 0px;
+    padding: 5px 15px;
+    color: black;
+    margin: 10px;
+}
+
+.container{
+    background-color: rgb(209, 209, 209);
+    max-width: fit-content;
+    height: fit-content;
+    margin: auto;
+    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+#user{
+    font-weight: bolder;
+}

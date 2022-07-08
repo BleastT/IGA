@@ -20,7 +20,7 @@ var status = document.getElementById("statusText");
 
 
 window.onload = () => {
-    if(localStorage.getItem("userId") !== "disconnected" && localStorage.getItem("userId") !== null)
+    if(sessionStorage.getItem("userId") !== "disconnected" && sessionStorage.getItem("userId") !== null)
     {
       window.location.href = "../Pages/Dashboard.html";
     }
@@ -46,7 +46,7 @@ async function connect()
         // console.log(data["password"]);
         if(email.value.toUpperCase() == data["email"] && password.value == data["password"])
         {
-            localStorage.setItem("userId", "admin$%_)");
+            sessionStorage.setItem("userId", "admin$%_)");
             status.textContent = "Bienvenue Administrateur";
             window.location.reload();
             logged = true;
