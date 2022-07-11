@@ -18,26 +18,31 @@
 #calendar {
     margin-top: 80px;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 7px;
+    grid-template-rows: repeat(7, 1fr);
+    gap: 9px;
 }
 
 .day {
-    background-color: red;
-    font-family: custom;
-    border-radius: 3px;
+    background-color: rgb(223, 223, 223);
+    border-radius: 5px;
     font-size: larger;
-    height: 120px;
+    height: 70px;
     font-weight: bolder;
     font-family: "custom2";
+    border: 10px red;
+
+}
+
+.day>div {
+    padding: 10px;
 }
 
 #today {
-    background-color: blue;
+    background-color: rgb(255, 135, 135);
 }
 
 #workingDay {
-    background-color: blueviolet;
+    background-color: rgb(195, 130, 255);
 }
 
 .btn {

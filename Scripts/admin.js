@@ -33,8 +33,6 @@ async function connect()
   var email =  document.getElementById("email");
   var password = document.getElementById("password");
 
-  var logged = false;
-
   if(email.value && password.value)
   {
     const reference = ref(db, "ADMIN/");
@@ -42,14 +40,13 @@ async function connect()
       const data = snapshot.val();;
       if (data != null)
       {
-        // console.log(data["email"]);
-        // console.log(data["password"]);
+
+        
         if(email.value.toUpperCase() == data["email"] && password.value == data["password"])
         {
             sessionStorage.setItem("userId", "admin$%_)");
             status.textContent = "Bienvenue Administrateur";
             window.location.reload();
-            logged = true;
         }
         else{
             status.textContent = "Verifiez que vous avez entrez les bons renseignements";
@@ -62,7 +59,6 @@ async function connect()
     });
 
 
-    password.value = "";
   }
   else{
     status.textContent = "S'il vous plait, remplissez toute les cases";

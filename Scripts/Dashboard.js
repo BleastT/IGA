@@ -128,21 +128,21 @@ if(id !== "admin$%_)")
       {
         if(day == date.getDate())
         {
-          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}</div><div>${dayName}</div><div>${is_WorkingDay}</div></div>`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}</div><div>${dayName}&nbsp &nbsp &nbsp &nbsp &nbsp${is_WorkingDay}</div></div>`);
 
         }
         else{
-          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="workingDay"><div>${day}</div><div>${dayName}</div><div>${is_WorkingDay}</div></div>`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="workingDay"><div>${day}</div><div>${dayName}&nbsp &nbsp &nbsp &nbsp &nbsp${is_WorkingDay}</div></div>`);
 
         }
       }
       else{
         if(day == date.getDate())
         {
-          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}</div><div>${dayName}</div></div`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day" id="today"><div>${day}&nbsp &nbsp &nbsp &nbsp &nbsp Aujourd'hui</div><div>${dayName}&nbsp &nbsp &nbsp &nbsp &nbsp Pas de quart de travail</div></div`);
         }
         else{
-          calendar.insertAdjacentHTML("beforeend",`<div class="day"><div>${day}</div><div>${dayName}</div></div`);
+          calendar.insertAdjacentHTML("beforeend",`<div class="day"><div>${day}</div><div>${dayName}&nbsp &nbsp &nbsp &nbsp &nbsp Pas de quart de travail</div></div`);
         }
       }
 

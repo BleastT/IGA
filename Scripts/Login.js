@@ -31,9 +31,6 @@ async function connect()
 
   var email =  document.getElementById("email");
   var password = document.getElementById("password");
-
-  var logged = false;
-
   if(email.value && password.value)
   {
     const reference = ref(db, "USERS");
